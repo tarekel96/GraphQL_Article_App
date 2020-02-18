@@ -1,0 +1,27 @@
+{
+  "name": "graphql_article_app",
+  "version": "1.0.0",
+  "description": "A node.js app that utilizes the NY Times open source API with the following technologies: Express.js, GraphQL, and React.js",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tarekel96/GraphQL_Article_App.git"
+  },
+  "author": "Tarek El-Hajjaoui",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tarekel96/GraphQL_Article_App/issues"
+  },
+  "homepage": "https://github.com/tarekel96/GraphQL_Article_App#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "express-graphql": "^0.9.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.2"
+  }
+}
