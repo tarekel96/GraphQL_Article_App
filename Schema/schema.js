@@ -1,9 +1,72 @@
-const express = require("express");
-const app = express();
-const graphqlHTTP = require("express-graphql");
+const {
+  GraphQLSchema,
+  GraphQLObjectType,
+  GraphQLString,
+  GraphQLInt,
+  GraphQLList
+} = require("graphql");
 
-app.get("/test", (req, res) => {
-  res.send("TEST");
+const Articles = new GraphQLObjectType({
+  name: "Articles",
+  fields: () => ({
+    // title: { type: GraphQLString },
+    _id: { type: GraphQLInt }
+  })
 });
 
-module.exports = app;
+const KeyWords = new GraphQLObjectType({
+  name: "KeyWords",
+  fields: () => ({
+    major: {
+      type: GraphQLString
+    },
+    name: {
+      type: GraphQLString
+    },
+    rank: {
+      type: GraphQLInt
+    },
+    value: {
+      type: GraphQLString
+    }
+  })
+});
+
+const RootQuery = new GraphQLObjectType({
+  name: "RootQuery",
+  fields: {
+    articles: {
+      type: new GraphQLList(Articles)
+    },
+    keywords: {
+      type: new GraphQLList(KeyWords)
+    }
+  }
+});
+
+module.exports = new GraphQLSchema({
+  query: RootQuery
+});
+
+// https://graphql.org/graphql-js/type/
+// var AddressType = new GraphQLObjectType({
+//         name: 'Address',
+//         fields: {
+//           street: { type: GraphQLString },
+//           number: { type: GraphQLInt },
+//           formatted: {
+//             type: GraphQLString,
+//             resolve(obj) {
+//               return obj.number + ' ' + obj.street
+//             }
+//           }
+//         }
+//       });
+
+//       var PersonType = new GraphQLObjectType({
+//         name: 'Person',
+//         fields: () => ({
+//           name: { type: GraphQLString },
+//           bestFriend: { type: PersonType },
+//         })
+//       });
