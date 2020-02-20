@@ -33,6 +33,24 @@ const KeyWords = new GraphQLObjectType({
   })
 });
 
+const PlaceHolder = new GraphQLObjectType({
+  name: "PlaceHolder",
+  fields: () => ({
+    userId: {
+      type: GraphQLInt
+    },
+    id: {
+      type: GraphQLInt
+    },
+    title: {
+      type: GraphQLString
+    },
+    body: {
+      type: GraphQLString
+    }
+  })
+});
+
 const RootQuery = new GraphQLObjectType({
   name: "RootQuery",
   fields: {
@@ -44,8 +62,19 @@ const RootQuery = new GraphQLObjectType({
       resolve(parent, args) {
         return axios
           .get(
-            `https://api.nytimes.com/svc/search/v2/articlesearch.json?q=election&api-key=${process.env.NY_API_KEY}`
+            `https://api.nytimes.com/svc/search/v2/articlesearch.json?&api-key=${process.env.NY_API_KEY}`
+            // `https://api.nytimes.com/svc/search/v2/articlesearch.json?q=tesla&api-key=${process.env.NY_API_KEY}`
           )
+          .then(res => {
+            res.data;
+          });
+      }
+    },
+    placeholder: {
+      type: new GraphQLList(PlaceHolder),
+      resolve(parents, args) {
+        return axios
+          .get(`https://jsonplaceholder.typicode.com/posts`)
           .then(res => res.data);
       }
     }
