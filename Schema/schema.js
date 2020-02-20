@@ -5,6 +5,7 @@ const {
   GraphQLInt,
   GraphQLList
 } = require("graphql");
+const axios = require("axios");
 
 const Articles = new GraphQLObjectType({
   name: "Articles",
@@ -39,7 +40,14 @@ const RootQuery = new GraphQLObjectType({
       type: new GraphQLList(Articles)
     },
     keywords: {
-      type: new GraphQLList(KeyWords)
+      type: new GraphQLList(KeyWords),
+      resolve(parent, args) {
+        return axios
+          .get(
+            `https://api.nytimes.com/svc/search/v2/articlesearch.json?q=election&api-key=${process.env.NY_API_KEY}`
+          )
+          .then(res => res.data);
+      }
     }
   }
 });
