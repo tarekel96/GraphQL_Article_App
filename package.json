@@ -10,6 +10,7 @@
     "client": "cd client && yarn start",
     "dev": "concurrently \"npm run server\" \"npm run client\""
   },
+  "proxy": "http://localhost:3001",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/tarekel96/GraphQL_Article_App.git"
